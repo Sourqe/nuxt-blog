@@ -17,23 +17,24 @@ export default {
   components: {
     PostPreview
   },
-  data() {
-    return {
-      posts: [
-        {
-          title: "A New Beginning",
-          previewText: "The post that started everything",
-          thumbnailUrl: "https://www.bluebillywig.com/sites/default/files/styles/full_width_with_sidebar/public/thumbnailsvideo.png",
-          id: "a-new-beginning"
-        },
-        {
-          title: "A Second Beginning",
-          previewText: "The second post that started everything",
-          thumbnailUrl: "https://www.bluebillywig.com/sites/default/files/styles/full_width_with_sidebar/public/thumbnailsvideo.png",
-          id: "a-second-beginning"
-        },
-      ]
-    };
+  asyncData(context) {
+    return context.app.$storyapi
+      .get("cdn/stories", {
+        version: "draft",
+        starts_with: "blog/"
+      })
+      .then(res => {
+        return {
+          posts: res.data.stories.map(bp => {
+            return {
+              id: bp.slug,
+              title: bp.content.title,
+              previewText: bp.content.summary,
+              thumbnailUrl: bp.content.thumbnail
+            };
+          })
+        };
+      });
   }
 };
 </script>
