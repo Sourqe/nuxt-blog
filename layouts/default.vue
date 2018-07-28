@@ -29,6 +29,6 @@ body {
 }
 
 .main-content {
-  margin-top: 4.5rem;
+  margin-left: 12.5rem;
 }
 </style>
