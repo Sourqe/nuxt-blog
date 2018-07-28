@@ -48,6 +48,7 @@ a {
   width: 90%;
   height: 20rem;
   margin: 1rem;
+  padding: 5px;  
 }
 .post-preview-thumbnail {
   background-position: center;
